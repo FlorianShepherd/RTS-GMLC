@@ -141,8 +141,18 @@ reserve.data = src.reserves[,.(Reserve = `Reserve Product`,
                                Type = direction[gsub('.*_(.*)','\\1',`Reserve Product`),'value'], 
                                Scenario = paste0('Add ',`Reserve Product`),
                                Timeframe = `Timeframe (sec)`,
-                               VoRS = 4000,
+                               VoRS = ifelse(grepl("PFR",`Reserve Product`),4100,4000),
                                `Mutually Exclusive` = 1)]
+##PFR-specific inputs
+reserve.data$Type[which(reserve.data$Reserve == "Flex_Up")] <- "3"
+reserve.data$Type[which(reserve.data$Reserve == "Flex_Down")] <- "4"
+reserve.data$Type[which(reserve.data$Reserve == "Reg_Up")] <- "3"
+reserve.data$Type[which(reserve.data$Reserve == "Reg_Down")] <- "4"
+
+reserve.data$`Mutually Exclusive`[which(reserve.data$Reserve == "Spin_Up")] <- 2
+reserve.data$`Mutually Exclusive`[which(reserve.data$Reserve == "PFR_Up")] <- 2
+reserve.data$`Mutually Exclusive`[which(reserve.data$Reserve == "PFRCSP_Up")] <- 2
+reserve.data$`Mutually Exclusive`[which(reserve.data$Reserve == "PFRRE_Up")] <- 2
 
 reserve.generators = merge(eligible.gens[,.(Reserve = `Reserve Product`,`Category` = `Elegible Gen Categories`)],
                            src.gen[,.(Generator = `GEN UID`,`Category`)],by = "Category",
