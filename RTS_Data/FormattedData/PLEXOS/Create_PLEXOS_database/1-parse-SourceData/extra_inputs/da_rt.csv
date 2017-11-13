@@ -1,1 +1,5 @@
-parent.model,child.model,filepointer.scenario,datafileobj.scenarioDAY_AHEAD,REAL_TIME,RT Filepointers,RT Run
+parent.model,child.model,filepointer.scenario,datafileobj.scenario
+DAY_AHEAD,REAL_TIME,RT Filepointers,RT Run
+DAY_AHEAD_PFR,REAL_TIME,RT PFR Filepointers,RT Run
+DAY_AHEAD_PFRCSP,REAL_TIME,RT CSP Filepointers,RT Run
+DAY_AHEAD_PFRRE,REAL_TIME,RT PFRRE Filepointers,RT Run
